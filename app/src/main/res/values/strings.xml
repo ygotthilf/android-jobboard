@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Jobboard</string>
+    <string name="app_name">Job board</string>
+    <string name="job_description">DESCRIPTION</string>
+    <string name="job_publish">By %1$s. %2$s</string>
 </resources>

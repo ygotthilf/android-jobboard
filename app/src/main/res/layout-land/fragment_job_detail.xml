@@ -64,15 +64,6 @@
                     style="@style/Job.Info"
                     />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -102,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/job_description"
                 style="@style/Job.Section.Title"
-               />
+                />
 
             <TextView
                 android:layout_width="match_parent"
