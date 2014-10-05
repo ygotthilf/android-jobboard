@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_job_list"
     android:name="fr.ygo.jobboard.JobListFragment"
     tools:layout="@layout/fragment_job_list">
 </fragment>

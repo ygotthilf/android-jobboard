@@ -21,7 +21,7 @@ import fr.ygo.jobboard.data.JobsContent;
  */
 public class JobListFragment extends ListFragment {
 
-    private Context mContext;
+    private JobListActivity mActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,18 +29,23 @@ public class JobListFragment extends ListFragment {
         return inflater.inflate(R.layout.fragment_job_list, container, false);
     }
 
+
+    public void setListSingleSelectionMode (boolean selection){
+        getListView().setChoiceMode(selection ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_SINGLE);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         // get the application context
-        mContext = getActivity();
+        mActivity = (JobListActivity)getActivity();
 
         // get the job list
         List<Job> jobs = JobsContent.JOBS;
 
         // display the job list
-        setListAdapter(new ArrayAdapter<Job>(mContext, android.R.layout.simple_list_item_1, jobs));
+        setListAdapter(new ArrayAdapter<Job>(mActivity, android.R.layout.simple_list_item_activated_1, jobs));
     }
 
     @Override
@@ -49,11 +54,7 @@ public class JobListFragment extends ListFragment {
         // get the selected job
         Job selectedJob = (Job)getListView().getItemAtPosition(position);
 
-        // create an intent with job id extra to launch the detail activity
-        Intent intent=new Intent(mContext, JobDetailActivity.class);
-        intent.putExtra(JobDetailFragment.ARG_JOB_ID, selectedJob.getId());
-
-        // send intent to start activity
-        startActivity(intent);
+        // delegate click to the activity
+        mActivity.onJobSelected(selectedJob.getId());
     }
 }

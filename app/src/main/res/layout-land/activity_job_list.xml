@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:name="fr.ygo.jobboard.JobListFragment"
+        android:id="@+id/fragment_job_list"
+        tools:layout="@layout/fragment_job_list">
+    </fragment>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent" android:background="@color/color_primary"/>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:id="@+id/fragment_job_detail_layout"
+        ></FrameLayout>
+
+</LinearLayout>

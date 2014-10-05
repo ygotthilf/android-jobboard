@@ -1,9 +1,13 @@
 package fr.ygo.jobboard;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
 
 public class JobDetailActivity extends ActionBarActivity {
@@ -34,5 +38,21 @@ public class JobDetailActivity extends ActionBarActivity {
                     .add(R.id.fragment_job_detail_layout, fragment)
                     .commit();
         }
+
+        // display action bar back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            // if back button is pressed then go to previous activity
+            case android.R.id.home :
+                NavUtils.navigateUpTo(this, new Intent(this, JobListActivity.class));
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
