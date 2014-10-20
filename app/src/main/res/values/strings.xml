@@ -3,4 +3,9 @@
     <string name="app_name">Job board</string>
     <string name="job_description">DESCRIPTION</string>
     <string name="job_publish">By %1$s. %2$s</string>
+    <string name="job_apply_title">Apply to this job</string>
+    <string name="email">Email</string>
+    <string name="message">Message</string>
+    <string name="share">Share</string>
+    <string name="apply">Apply</string>
 </resources>
