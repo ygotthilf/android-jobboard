@@ -1,5 +1,10 @@
 package fr.ygo.jobboard.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -7,7 +12,9 @@ import java.util.Date;
  */
 public class Job {
 
-    private int id;
+    private static final SimpleDateFormat ISO_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+    private String id;
     private String title;
     private String description;
     private String duration;
@@ -18,7 +25,7 @@ public class Job {
     private String email;
     private Date created;
 
-    public Job(int id, String title, String description, String duration, String start, String price, String location, String publisher, String email, Date created) {
+    public Job(String id, String title, String description, String duration, String start, String price, String location, String publisher, String email, Date created) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,15 +38,45 @@ public class Job {
         this.created = created;
     }
 
+    public Job(int id, String title, String description, String duration, String start, String price, String location, String publisher, String email, Date created) {
+        this(Integer.toString(id), title, description,duration,start,price,location,publisher,email,created);
+    }
+
     public Job(){
 
     }
 
-    public String getId() {
-        return Integer.toString(id);
+    public static Job fromJson (JSONObject obj) throws JSONException{
+
+        Job job = new Job();
+
+        job.setId(obj.optString("_id"));
+        job.setTitle(obj.optString("title"));
+        job.setDescription(obj.optString("description"));
+        job.setPublisher(obj.optString("publisher"));
+        job.setStart(obj.optString("start"));
+        job.setPrice(obj.optString("price"));
+        job.setDuration(obj.optString("duration"));
+        job.setLocation(obj.optString("location"));
+
+        String isoDate =obj.optString("created");
+
+        if(isoDate!=null) {
+            try {
+                job.setCreated(ISO_FORMAT.parse(isoDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return job;
     }
 
-    public void setId(int id) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
