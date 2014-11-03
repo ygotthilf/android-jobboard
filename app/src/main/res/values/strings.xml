@@ -8,4 +8,8 @@
     <string name="message">Message</string>
     <string name="share">Share</string>
     <string name="apply">Apply</string>
+    <string name="refresh">Refresh</string>
+    <string name="no_job">No job found</string>
+    <string name="network_error">An network error has occurred.\nPlease refresh the screen.</string>
+    <string name="error">Error !</string>
 </resources>

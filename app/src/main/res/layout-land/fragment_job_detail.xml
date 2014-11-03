@@ -1,134 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="vertical"
-    >
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/job_loader"
+        ></ProgressBar>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" android:layout_weight="1">
+        android:layout_height="match_parent" android:orientation="vertical"
+        android:id="@+id/job_content"
+        >
 
-        <LinearLayout
-            android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Développeur AngularJS"
-                android:id="@+id/job_title"
-                style="@style/Job.Title"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Développeur AngularJS"
-                android:id="@+id/job_publish"
-                style="@style/Job.SubTitle"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                >
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="500€"
-                    android:drawableTop="@drawable/ic_action"
-                    android:id="@+id/job_price"
-                    style="@style/Job.Info"
+                    android:id="@+id/job_title"
+                    style="@style/Job.Title"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/job_publish"
+                    style="@style/Job.SubTitle"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:drawableTop="@drawable/ic_action"
+                        android:id="@+id/job_price"
+                        style="@style/Job.Info"
+
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_loc"
+                        android:id="@+id/job_location"
+                        style="@style/Job.Info"
+                        />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:drawableTop="@drawable/ic_duration"
+                        android:id="@+id/job_duration"
+                        style="@style/Job.Info"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_delay"
+                        android:id="@+id/job_start"
+                        style="@style/Job.Info"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/job_description"
+                    style="@style/Job.Section.Title"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="Paris"
-                    android:drawableTop="@drawable/ic_loc"
-                    android:id="@+id/job_location"
-                    style="@style/Job.Info"
-                    />
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="2 mois"
-                    android:drawableTop="@drawable/ic_duration"
-                    android:id="@+id/job_duration"
-                    style="@style/Job.Info"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="ASAP"
-                    android:drawableTop="@drawable/ic_delay"
-                    android:id="@+id/job_start"
-                    style="@style/Job.Info"/>
+                    android:id="@+id/job_description"/>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/job_description"
-                style="@style/Job.Section.Title"
-                />
+        </ScrollView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/job_description"
-                android:text="Nous recherchons un Développeur Mobile iOS, Androïd.
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="Postuler"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:id="@+id/job_submit"
+            style="@style/Job.Button.Submit"/>
 
-Mission :
-- Accompagnement des équipes dans la définition des offres de services de développements mobiles,
-- Etre force de proposition sur le type de développement mobile le plus approprié au regard des besoins Métier et des règles d’architecture et de sécurité,
-- Identifier les différentes solutions possibles en fonction des typologies d’applications envisagées,
-- Réaliser des chiffrages détaillés et argumentés,
-- Définir les abaques de développement mobile (conception, réalisation, tests).
-
-Mission :
-- Accompagnement des équipes dans la définition des offres de services de développements mobiles,
-- Etre force de proposition sur le type de développement mobile le plus approprié au regard des besoins Métier et des règles d’architecture et de sécurité,
-- Identifier les différentes solutions possibles en fonction des typologies d’applications envisagées,
-- Réaliser des chiffrages détaillés et argumentés,
-- Définir les abaques de développement mobile (conception, réalisation, tests).
-
-"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="Postuler"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:id="@+id/job_submit"
-        style="@style/Job.Button.Submit"/>
-
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

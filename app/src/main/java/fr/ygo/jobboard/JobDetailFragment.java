@@ -2,6 +2,7 @@ package fr.ygo.jobboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import fr.ygo.jobboard.data.Job;
-import fr.ygo.jobboard.data.JobsContent;
+import fr.ygo.jobboard.data.JobApi;
 
 /**
  * Created by Yoann on 03/10/2014.
@@ -25,6 +26,9 @@ import fr.ygo.jobboard.data.JobsContent;
 public class JobDetailFragment extends Fragment {
 
     public static String ARG_JOB_ID = "job_id";
+
+    private View mJobLoader;
+    private View mJobContent;
 
     private TextView mTitleText ;
     private TextView mDescriptionText ;
@@ -36,10 +40,11 @@ public class JobDetailFragment extends Fragment {
 
     private Button mSubmitButton;
 
+    private JobDetailTask mTask;
+
     private Job mJob;
 
-    // TEST FRAGMENT
-    private static Job ITEM_TEST = JobsContent.JOBS.get(0);
+    private Context mContext ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,12 +62,15 @@ public class JobDetailFragment extends Fragment {
         Bundle args = getArguments();
 
         // get application context
-        Context context=getActivity();
+        mContext=getActivity();
 
         // get the loaded view
         View parent = getView();
 
         // fetch views
+        mJobLoader = parent.findViewById(R.id.job_loader);
+        mJobContent = parent.findViewById(R.id.job_content);
+
         mTitleText = (TextView) parent.findViewById(R.id.job_title);
         mDescriptionText = (TextView) parent.findViewById(R.id.job_description);
         mDurationText = (TextView) parent.findViewById(R.id.job_duration);
@@ -72,31 +80,39 @@ public class JobDetailFragment extends Fragment {
         mPublishText = (TextView) parent.findViewById(R.id.job_publish);
 
         mSubmitButton = (Button) parent.findViewById(R.id.job_submit);
-
-        //Job job = ITEM_TEST;
-        mJob = JobsContent.findJob(args.getString(ARG_JOB_ID));
-
-        // push job data in the view
-        mTitleText.setText(mJob.getTitle());
-        mDescriptionText.setText(mJob.getDescription());
-        mDurationText.setText(mJob.getDuration());
-        mStartText.setText(mJob.getStart());
-        mPriceText.setText(mJob.getPrice());
-        mLocationText.setText(mJob.getLocation());
-
-        long created = mJob.getCreated().getTime();
-        mPublishText.setText(getString(
-                R.string.job_publish,
-                mJob.getPublisher(),
-                DateUtils.getRelativeTimeSpanString(created, System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS)
-        ));
-
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showJobApplyDialog();
             }
         });
+
+        Anim.hide(mContext, mJobContent);
+        Anim.show(mContext, mJobLoader);
+
+        mTask = new JobDetailTask();
+        mTask.execute(args.getString(ARG_JOB_ID));
+    }
+
+    private void updateView (Job job){
+        if(mJob!=null) {
+            mTitleText.setText(mJob.getTitle());
+            mDescriptionText.setText(mJob.getDescription());
+            mDurationText.setText(mJob.getDuration());
+            mStartText.setText(mJob.getStart());
+            mPriceText.setText(mJob.getPrice());
+            mLocationText.setText(mJob.getLocation());
+
+            long created = mJob.getCreated().getTime();
+            mPublishText.setText(getString(
+                    R.string.job_publish,
+                    mJob.getPublisher(),
+                    DateUtils.getRelativeTimeSpanString(created, System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS)
+            ));
+        }
+
+        Anim.hide(mContext, mJobLoader);
+        Anim.show(mContext, mJobContent);
     }
 
     private void showJobApplyDialog (){
@@ -107,6 +123,12 @@ public class JobDetailFragment extends Fragment {
         fragment.setArguments(bundle);
 
         fragment.show(getFragmentManager(), "apply");
+    }
+
+    private void showErrorDialog (){
+        DialogFragment fragment = new ErrorDialogFragment();
+        fragment.setTargetFragment(this, 0);
+        fragment.show(getFragmentManager(), "error");
     }
 
     @Override
@@ -131,5 +153,41 @@ public class JobDetailFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        if(mTask!=null){
+            mTask.cancel(true);
+        }
+        super.onDestroy();
+    }
+
+    public class JobDetailTask extends AsyncTask<String, Void, Job> {
+
+        private boolean error;
+
+        @Override
+        protected Job doInBackground(String... ids) {
+            try {
+                return JobApi.getJob(getActivity(), ids[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                error = true;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Job job) {
+
+            if(error){
+                showErrorDialog();
+            }
+
+            // push job data in the view
+            mJob = job;
+            updateView(job);
+        }
     }
 }
