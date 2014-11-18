@@ -19,6 +19,17 @@
         <activity android:name=".JobDetailActivity">
         </activity>
 
+        <activity android:name=".AppSettings"></activity>
+
+        <service android:name=".JobNotificationService"></service>
+
+        <receiver android:name=".JobNotificationReceiver">
+            <intent-filter>
+                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                 <action android:name="android.intent.action.TIMEZONE_CHANGED"></action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

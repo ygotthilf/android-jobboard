@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_title"
+        android:key="pref_key_storage_settings">
+        <CheckBoxPreference
+            android:key="pref_key_background"
+            android:summary="@string/pref_summary_background"
+            android:title="@string/pref_title_background"
+            android:defaultValue="true" />
+
+        <Preference android:title="@string/pref_title_by" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.u-pem.fr/" />
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

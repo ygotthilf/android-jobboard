@@ -1,5 +1,6 @@
 package fr.ygo.jobboard;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -95,6 +96,9 @@ public class JobListFragment extends ListFragment {
 
             case R.id.refresh:
                 launchTask();
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(mActivity, AppSettings.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
